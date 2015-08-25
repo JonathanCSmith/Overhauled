@@ -1,0 +1,16 @@
+[
+{
+  "modid": "overhauled",
+  "name": "Overhauled",
+  "description": "Minecraft Overhauled!",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "url": "",
+  "updateUrl": "",
+  "authorList": ["Jonathan Smith"],
+  "credits": "The Forge and FML guys",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]
