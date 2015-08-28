@@ -12,6 +12,7 @@ import me.jonathansmith.overhauled.core.CoreProperties;
 import me.jonathansmith.overhauled.core.configuration.CoreConfigurationHandler;
 import me.jonathansmith.overhauled.core.delegate.CommonDelegate;
 import me.jonathansmith.overhauled.api.nexus.INexus;
+import me.jonathansmith.overhauled.core.nexus.achievement.AchievementNexus;
 import me.jonathansmith.overhauled.core.nexus.configuration.ConfigurationNexus;
 import me.jonathansmith.overhauled.core.nexus.trait.TraitNexus;
 
@@ -38,6 +39,7 @@ public class Overhauled {
         // Construct native nexus'
         OverhauledAPI.registerNexus(ConfigurationNexus.getInstance());
         OverhauledAPI.registerNexus(TraitNexus.getInstance());
+        OverhauledAPI.registerNexus(AchievementNexus.getInstance());
 
         // Construct native content
         OverhauledAPI.registerContent(CoreConfigurationHandler.getInstance());
