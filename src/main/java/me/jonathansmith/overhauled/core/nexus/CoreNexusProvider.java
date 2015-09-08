@@ -6,7 +6,12 @@ import me.jonathansmith.overhauled.api.nexus.ICoreNexusProvider;
 import me.jonathansmith.overhauled.api.nexus.INexus;
 import me.jonathansmith.overhauled.api.nexus.achievement.IAchievementNexus;
 import me.jonathansmith.overhauled.api.nexus.configuration.IConfigurationNexus;
+import me.jonathansmith.overhauled.api.nexus.dimension.IDimensionNexus;
+import me.jonathansmith.overhauled.api.nexus.multiblock.IMultiblockNexus;
+import me.jonathansmith.overhauled.api.nexus.network.INetworkNexus;
+import me.jonathansmith.overhauled.api.nexus.player.IPlayerNexus;
 import me.jonathansmith.overhauled.api.nexus.trait.ITraitNexus;
+import me.jonathansmith.overhauled.api.nexus.world.IWorldNexus;
 
 /**
  * Created by Jonathan Charles Smith on 25/08/15.
@@ -19,12 +24,32 @@ public class CoreNexusProvider implements ICoreNexusProvider {
     private final LinkedHashMap<String, INexus> nexus_list = new LinkedHashMap<>();
 
     private IConfigurationNexus configurationNexus;
+    private INetworkNexus       networkNexus;
+    private IPlayerNexus        playerNexus;
+    private IMultiblockNexus    multiblockNexus;
     private ITraitNexus         traitNexus;
     private IAchievementNexus   achievementNexus;
+    private IWorldNexus         worldNexus;
+    private IDimensionNexus     dimensionNexus;
 
     @Override
     public IConfigurationNexus getConfigurationNexus() {
         return this.configurationNexus;
+    }
+
+    @Override
+    public INetworkNexus getNetworkNexus() {
+        return this.networkNexus;
+    }
+
+    @Override
+    public IPlayerNexus getPlayerNexus() {
+        return this.playerNexus;
+    }
+
+    @Override
+    public IMultiblockNexus getMultiblockNexus() {
+        return this.multiblockNexus;
     }
 
     @Override
@@ -35,6 +60,16 @@ public class CoreNexusProvider implements ICoreNexusProvider {
     @Override
     public IAchievementNexus getAchievementNexus() {
         return this.achievementNexus;
+    }
+
+    @Override
+    public IWorldNexus getWorldNexus() {
+        return this.worldNexus;
+    }
+
+    @Override
+    public IDimensionNexus getDimensionNexus() {
+        return this.dimensionNexus;
     }
 
     @Override
@@ -49,14 +84,33 @@ public class CoreNexusProvider implements ICoreNexusProvider {
                 this.configurationNexus = (IConfigurationNexus) nexus;
                 break;
 
+            case "Network Nexus":
+                this.networkNexus = (INetworkNexus) nexus;
+                break;
+
+            case "Player Nexus":
+                this.playerNexus = (IPlayerNexus) nexus;
+                break;
+
+            case "Multiblock Nexus":
+                this.multiblockNexus = (IMultiblockNexus) nexus;
+                break;
+
             case "Trait Nexus":
                 this.traitNexus = (ITraitNexus) nexus;
                 break;
 
-            case "AchievementNexus":
+            case "Achievement Nexus":
                 this.achievementNexus = (IAchievementNexus) nexus;
                 break;
 
+            case "World Nexus":
+                this.worldNexus = (IWorldNexus) nexus;
+                break;
+
+            case "Dimension Nexus":
+                this.dimensionNexus = (IDimensionNexus) nexus;
+                break;
         }
 
         this.nexus_list.put(key, nexus);
