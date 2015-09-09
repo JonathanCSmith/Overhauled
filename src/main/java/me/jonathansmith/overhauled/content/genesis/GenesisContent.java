@@ -2,7 +2,6 @@ package me.jonathansmith.overhauled.content.genesis;
 
 import me.jonathansmith.overhauled.api.content.IContent;
 import me.jonathansmith.overhauled.api.delegate.IDelegate;
-import me.jonathansmith.overhauled.content.genesis.gameobject.GravelObjectProvider;
 import me.jonathansmith.overhauled.content.genesis.universe.UniverseProvider;
 
 /**
@@ -15,14 +14,10 @@ import me.jonathansmith.overhauled.content.genesis.universe.UniverseProvider;
 public class GenesisContent implements IContent {
 
     private final UniverseProvider     universe_provider = new UniverseProvider();
-    private final GravelObjectProvider gravel_provider   = new GravelObjectProvider();
 
     @Override
     public void buildForPreInitialisation(IDelegate delegate) {
         // Core universe changes
         this.universe_provider.build();
-
-
-        this.gravel_provider.build();
     }
 }

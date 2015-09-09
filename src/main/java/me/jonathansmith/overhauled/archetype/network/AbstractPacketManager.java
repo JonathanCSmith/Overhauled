@@ -41,10 +41,10 @@ public abstract class AbstractPacketManager<T extends IMessage> implements IPack
     public T onMessage(T message, MessageContext ctx) {
         switch (FMLCommonHandler.instance().getEffectiveSide()) {
             case CLIENT:
-                return this.handleClientSide(message, Minecraft.getMinecraft().thePlayer, Minecraft.getMinecraft().theWorld, Minecraft.getMinecraft());
+                return this.handleClientSideOnNetworkThread(message, Minecraft.getMinecraft().thePlayer, Minecraft.getMinecraft().theWorld, Minecraft.getMinecraft());
 
             case SERVER:
-                return this.handleServerSide(message, ctx.getServerHandler().playerEntity, ctx.getServerHandler().playerEntity.getServerForPlayer(), ctx.getServerHandler().playerEntity.getServerForPlayer());
+                return this.handleServerSideOnNetworkThread(message, ctx.getServerHandler().playerEntity, ctx.getServerHandler().playerEntity.getServerForPlayer(), ctx.getServerHandler().playerEntity.getServerForPlayer());
         }
 
         return null;
@@ -57,7 +57,7 @@ public abstract class AbstractPacketManager<T extends IMessage> implements IPack
      * @param worldThread the correct engine thread to submit jobs to from the network thread
      * @return the message when it has been successfully decoded on the client side
      */
-    public T handleClientSide(final T message, final EntityPlayer thePlayer, final World theWorld, IThreadListener worldThread) {
+    public T handleClientSideOnNetworkThread(final T message, final EntityPlayer thePlayer, final World theWorld, IThreadListener worldThread) {
         return message;
     }
 
@@ -68,7 +68,7 @@ public abstract class AbstractPacketManager<T extends IMessage> implements IPack
      * @param worldThread the correct engine thread to submit jobs to from the network thread
      * @return the message when it has been successfully decoded on the server side
      */
-    public T handleServerSide(final T message, final EntityPlayer thePlayer, final World theWorld, IThreadListener worldThread) {
+    public T handleServerSideOnNetworkThread(final T message, final EntityPlayer thePlayer, final World theWorld, IThreadListener worldThread) {
         return message;
     }
 }

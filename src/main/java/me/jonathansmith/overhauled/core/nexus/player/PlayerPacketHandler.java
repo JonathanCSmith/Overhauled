@@ -28,7 +28,7 @@ public class PlayerPacketHandler extends AbstractPacketManager<PlayerPacket> {
     }
 
     @Override
-    public PlayerPacket handleClientSide(final PlayerPacket message, final EntityPlayer thePlayer, final World theWorld, IThreadListener worldThread) {
+    public PlayerPacket handleClientSideOnNetworkThread(final PlayerPacket message, final EntityPlayer thePlayer, final World theWorld, IThreadListener worldThread) {
         switch (message.getPayload()) {
             case JOIN:
                 worldThread.addScheduledTask(new Runnable() {
@@ -73,7 +73,7 @@ public class PlayerPacketHandler extends AbstractPacketManager<PlayerPacket> {
     }
 
     @Override
-    public PlayerPacket handleServerSide(final PlayerPacket message, final EntityPlayer thePlayer, final World theWorld, IThreadListener worldThread) {
+    public PlayerPacket handleServerSideOnNetworkThread(final PlayerPacket message, final EntityPlayer thePlayer, final World theWorld, IThreadListener worldThread) {
         switch (message.getPayload()) {
             case JOIN:
                 worldThread.addScheduledTask(new Runnable() {
