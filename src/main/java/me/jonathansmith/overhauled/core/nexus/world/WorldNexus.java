@@ -41,15 +41,15 @@ public class WorldNexus implements IWorldNexus {
         this.world_providers.add(worldProvider);
     }
 
-    // Highest priority is to ensure world redirection has a valid ide prior to loading the dimension registry
+    // Highest priority is to ensure world redirection has a valid id prior to loading the dimension registry
     @SubscribeEvent(priority = EventPriority.HIGHEST)
     public void handlePostInitialisationEvent(CommonPostInitialisationEvent event) {
         for (IWorldProvider worldProvider : this.world_providers) {
-            if (!worldProvider.isEnabled()) {
+            if (!worldProvider.isWorldEnabled()) {
                 continue;
             }
 
-            worldProvider.build();
+            worldProvider.buildWorld();
         }
     }
 

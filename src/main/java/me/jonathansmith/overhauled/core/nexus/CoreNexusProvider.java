@@ -4,16 +4,10 @@ import java.util.LinkedHashMap;
 
 import me.jonathansmith.overhauled.api.nexus.ICoreNexusProvider;
 import me.jonathansmith.overhauled.api.nexus.INexus;
-<<<<<<< HEAD
-import me.jonathansmith.overhauled.api.nexus.trait.ITraitNexus;
-
-/**
- * Created by Jonathan Charles Smith on 25/08/15.
- *
-=======
 import me.jonathansmith.overhauled.api.nexus.achievement.IAchievementNexus;
 import me.jonathansmith.overhauled.api.nexus.configuration.IConfigurationNexus;
 import me.jonathansmith.overhauled.api.nexus.dimension.IDimensionNexus;
+import me.jonathansmith.overhauled.api.nexus.game_object.IGameObjectNexus;
 import me.jonathansmith.overhauled.api.nexus.multiblock.IMultiblockNexus;
 import me.jonathansmith.overhauled.api.nexus.network.INetworkNexus;
 import me.jonathansmith.overhauled.api.nexus.player.IPlayerNexus;
@@ -23,7 +17,6 @@ import me.jonathansmith.overhauled.api.nexus.world.IWorldNexus;
 /**
  * Created by Jonathan Charles Smith on 25/08/15.
  * <p/>
->>>>>>> origin/master
  * Implementation of the {@link ICoreNexusProvider} which aims to centralise access to nexus' for
  * external mods. Note, because anyone can reflect into this, we should not use the methods internally.
  */
@@ -31,9 +24,6 @@ public class CoreNexusProvider implements ICoreNexusProvider {
 
     private final LinkedHashMap<String, INexus> nexus_list = new LinkedHashMap<>();
 
-<<<<<<< HEAD
-    private ITraitNexus traitNexus;
-=======
     private IConfigurationNexus configurationNexus;
     private INetworkNexus       networkNexus;
     private IPlayerNexus        playerNexus;
@@ -42,6 +32,7 @@ public class CoreNexusProvider implements ICoreNexusProvider {
     private IAchievementNexus   achievementNexus;
     private IWorldNexus         worldNexus;
     private IDimensionNexus     dimensionNexus;
+    private IGameObjectNexus    gameObjectNexus;
 
     @Override
     public IConfigurationNexus getConfigurationNexus() {
@@ -62,7 +53,6 @@ public class CoreNexusProvider implements ICoreNexusProvider {
     public IMultiblockNexus getMultiblockNexus() {
         return this.multiblockNexus;
     }
->>>>>>> origin/master
 
     @Override
     public ITraitNexus getTraitNexus() {
@@ -70,8 +60,6 @@ public class CoreNexusProvider implements ICoreNexusProvider {
     }
 
     @Override
-<<<<<<< HEAD
-=======
     public IAchievementNexus getAchievementNexus() {
         return this.achievementNexus;
     }
@@ -87,17 +75,17 @@ public class CoreNexusProvider implements ICoreNexusProvider {
     }
 
     @Override
->>>>>>> origin/master
+    public IGameObjectNexus getGameObjectNexus() {
+        return this.gameObjectNexus;
+    }
+
+    @Override
     public INexus getNexusByName(String name) {
         return this.nexus_list.get(name);
     }
 
     public void registerNexus(INexus nexus) {
         String key = nexus.getUniqueIdentifier();
-<<<<<<< HEAD
-        if (key.contentEquals("Trait Nexus")) {
-            this.traitNexus = (ITraitNexus) nexus;
-=======
         switch (key) {
             case "Configuration Nexus":
                 this.configurationNexus = (IConfigurationNexus) nexus;
@@ -130,7 +118,9 @@ public class CoreNexusProvider implements ICoreNexusProvider {
             case "Dimension Nexus":
                 this.dimensionNexus = (IDimensionNexus) nexus;
                 break;
->>>>>>> origin/master
+
+            case "Game Object Nexus":
+                this.gameObjectNexus = (IGameObjectNexus) nexus;
         }
 
         this.nexus_list.put(key, nexus);

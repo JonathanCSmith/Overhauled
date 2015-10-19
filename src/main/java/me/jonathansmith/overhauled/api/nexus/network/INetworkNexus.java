@@ -10,7 +10,7 @@ import me.jonathansmith.overhauled.api.nexus.INexus;
 
 /**
  * Created by Jonathan Charles Smith on 08/09/15.
- *
+ * <p/>
  * Core contract for the network registry. Provides a method to register packets and their associated properties for
  * automatic deployment
  */
@@ -32,26 +32,29 @@ public interface INetworkNexus extends INexus {
     void sendToAll(IMessage message);
 
     /**
-     * @param message the message to send
+     * @param message     the message to send
      * @param targetPoint the point around which to send
      */
     void sendToAllAround(IMessage message, NetworkRegistry.TargetPoint targetPoint);
 
     /**
-     * @param message the message to send
+     * @param message     the message to send
      * @param dimensionID the dimension in which clients must be present in order to receive the message
      */
     void sendToDimension(IMessage message, int dimensionID);
 
     /**
-     * @param message the message to send
+     * @param message      the message to send
      * @param entityPlayer the client to receive the message
      */
     void sendTo(IMessage message, EntityPlayerMP entityPlayer);
 
     /**
      * @param runnable the runnable to be called on the main engine thread (i.e. not the network thread)
-     * @param ctx the current context of the message on the network thread
+     * @param ctx      the current context of the message on the network thread
+     *
+     * NOTE: This should really be handled in your packets. It is here as a utility and a reminder!
      */
+    @Deprecated
     void submitTaskFromNetworkThreadToMainThread(Runnable runnable, MessageContext ctx);
 }

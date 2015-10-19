@@ -12,19 +12,15 @@ import me.jonathansmith.overhauled.core.CoreProperties;
 import me.jonathansmith.overhauled.core.configuration.CoreConfigurationHandler;
 import me.jonathansmith.overhauled.core.delegate.CommonDelegate;
 import me.jonathansmith.overhauled.api.nexus.INexus;
-<<<<<<< HEAD
-import me.jonathansmith.overhauled.core.nexus.configuration.ConfigurationNexus;
-import me.jonathansmith.overhauled.core.nexus.trait.TraitNexus;
-=======
 import me.jonathansmith.overhauled.core.nexus.achievement.AchievementNexus;
 import me.jonathansmith.overhauled.core.nexus.configuration.ConfigurationNexus;
 import me.jonathansmith.overhauled.core.nexus.dimension.DimensionNexus;
+import me.jonathansmith.overhauled.core.nexus.game_object.GameObjectNexus;
 import me.jonathansmith.overhauled.core.nexus.multiblock.MultiblockNexus;
 import me.jonathansmith.overhauled.core.nexus.network.NetworkNexus;
 import me.jonathansmith.overhauled.core.nexus.player.PlayerNexus;
 import me.jonathansmith.overhauled.core.nexus.trait.TraitNexus;
 import me.jonathansmith.overhauled.core.nexus.world.WorldNexus;
->>>>>>> origin/master
 
 /**
  * Created by Jonathan Charles Smith on 25/08/15.
@@ -48,9 +44,6 @@ public class Overhauled {
     public Overhauled() {
         // Construct native nexus'
         OverhauledAPI.registerNexus(ConfigurationNexus.getInstance());
-<<<<<<< HEAD
-        OverhauledAPI.registerNexus(TraitNexus.getInstance());
-=======
         OverhauledAPI.registerNexus(NetworkNexus.getInstance());
         OverhauledAPI.registerNexus(PlayerNexus.getInstance());
         OverhauledAPI.registerNexus(MultiblockNexus.getInstance());
@@ -58,7 +51,7 @@ public class Overhauled {
         OverhauledAPI.registerNexus(AchievementNexus.getInstance());
         OverhauledAPI.registerNexus(WorldNexus.getInstance());
         OverhauledAPI.registerNexus(DimensionNexus.getInstance());
->>>>>>> origin/master
+        OverhauledAPI.registerNexus(GameObjectNexus.getInstance());
 
         // Construct native content
         OverhauledAPI.registerContent(CoreConfigurationHandler.getInstance());

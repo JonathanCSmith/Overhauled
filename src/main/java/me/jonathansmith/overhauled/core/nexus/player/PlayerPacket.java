@@ -1,18 +1,24 @@
 package me.jonathansmith.overhauled.core.nexus.player;
 
-import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.network.NetHandlerPlayClient;
+import net.minecraft.network.NetHandlerPlayServer;
+
+import net.minecraftforge.fml.relauncher.Side;
 
 import io.netty.buffer.ByteBuf;
 import me.jonathansmith.overhauled.api.nexus.player.PlayerEventType;
+import me.jonathansmith.overhauled.api.nexus.player.PlayerRegistryEvent;
+import me.jonathansmith.overhauled.api.archetype.network.AbstractPacket;
 
 /**
  * Created by Jonathan Charles Smith on 08/09/15.
  *
  * Packet for syncing player action methods between the client and server. May become redundant
  */
-public class PlayerPacket implements IMessage {
+public class PlayerPacket extends AbstractPacket {
 
-    private PlayerEventType payload;
+    private PlayerEventType playerEventType;
 
     // Change dimension payload
     private int fromDim;
@@ -21,21 +27,73 @@ public class PlayerPacket implements IMessage {
     public PlayerPacket() {
     }
 
-    public PlayerPacket(PlayerEventType payload) {
-        this.payload = payload;
+    public PlayerPacket(PlayerEventType playerEventType) {
+        this.playerEventType = playerEventType;
     }
 
-    public PlayerPacket(PlayerEventType payload, int fromDim, int toDim) {
-        this(payload);
+    public PlayerPacket(PlayerEventType playerEventType, int fromDim, int toDim) {
+        this(playerEventType);
         this.fromDim = fromDim;
         this.toDim = toDim;
     }
 
     @Override
-    public void fromBytes(ByteBuf buf) {
-        this.payload = PlayerEventType.values()[buf.readInt()];
+    public boolean hasServerSideInteraction() {
+        return true;
+    }
 
-        if (this.payload == PlayerEventType.CHANGE_DIMENSION) {
+    @Override
+    public void handleOnServer(NetHandlerPlayServer serverHandler) {
+        switch (this.playerEventType) {
+            case JOIN:
+                PlayerNexus.getInstance().post(new PlayerRegistryEvent.PlayerJoinCompleteEvent(Side.SERVER, serverHandler.playerEntity));
+                break;
+
+            case LEAVE:
+                PlayerNexus.getInstance().post(new PlayerRegistryEvent.PlayerLeaveCompleteEvent(Side.SERVER, serverHandler.playerEntity));
+                break;
+
+            case RESPAWN:
+                PlayerNexus.getInstance().post(new PlayerRegistryEvent.PlayerRespawnCompleteEvent(Side.SERVER, serverHandler.playerEntity));
+                break;
+
+            case CHANGE_DIMENSION:
+                PlayerNexus.getInstance().post(new PlayerRegistryEvent.PlayerChangeDimensionEvent(Side.SERVER, serverHandler.playerEntity, this.fromDim, this.toDim));
+                break;
+        }
+    }
+
+    @Override
+    public boolean hasClientSideInteraction() {
+        return true;
+    }
+
+    @Override
+    public void handleOnClient(NetHandlerPlayClient clientHandler) {
+        switch (this.playerEventType) {
+            case JOIN:
+                PlayerNexus.getInstance().post(new PlayerRegistryEvent.PlayerJoinEvent(Side.CLIENT, Minecraft.getMinecraft().thePlayer));
+                break;
+
+            case LEAVE:
+                PlayerNexus.getInstance().post(new PlayerRegistryEvent.PlayerLeaveEvent(Side.CLIENT, Minecraft.getMinecraft().thePlayer));
+                break;
+
+            case RESPAWN:
+                PlayerNexus.getInstance().post(new PlayerRegistryEvent.PlayerRespawnEvent(Side.CLIENT, Minecraft.getMinecraft().thePlayer));
+                break;
+
+            case CHANGE_DIMENSION:
+                PlayerNexus.getInstance().post(new PlayerRegistryEvent.PlayerChangeDimensionEvent(Side.CLIENT, Minecraft.getMinecraft().thePlayer, this.fromDim, this.toDim));
+                break;
+        }
+    }
+
+    @Override
+    public void fromBytes(ByteBuf buf) {
+        this.playerEventType = PlayerEventType.values()[buf.readInt()];
+
+        if (this.playerEventType == PlayerEventType.CHANGE_DIMENSION) {
             this.fromDim = buf.readInt();
             this.toDim = buf.readInt();
         }
@@ -43,16 +101,16 @@ public class PlayerPacket implements IMessage {
 
     @Override
     public void toBytes(ByteBuf buf) {
-        buf.writeInt(this.payload.ordinal());
+        buf.writeInt(this.playerEventType.ordinal());
 
-        if (this.payload == PlayerEventType.CHANGE_DIMENSION) {
+        if (this.playerEventType == PlayerEventType.CHANGE_DIMENSION) {
             buf.writeInt(this.fromDim);
             buf.writeInt(this.toDim);
         }
     }
 
-    public PlayerEventType getPayload() {
-        return this.payload;
+    public PlayerEventType getPlayerEventType() {
+        return this.playerEventType;
     }
 
     public int getFromDim() {

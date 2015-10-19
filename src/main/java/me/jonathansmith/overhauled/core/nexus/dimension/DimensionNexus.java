@@ -7,6 +7,7 @@ import net.minecraftforge.common.DimensionManager;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 import me.jonathansmith.overhauled.api.delegate.event.CommonPostInitialisationEvent;
+import me.jonathansmith.overhauled.api.nexus.dimension.IDimension;
 import me.jonathansmith.overhauled.api.nexus.dimension.IDimensionNexus;
 import me.jonathansmith.overhauled.api.nexus.dimension.IDimensionProvider;
 
@@ -27,10 +28,11 @@ public class DimensionNexus implements IDimensionNexus {
         return DimensionNexus.instance;
     }
 
-    private final ArrayList<IDimensionProvider>        dimension_providers     = new ArrayList<>();
-    private final HashMap<Integer, IDimensionProvider> dimension_providers_map = new HashMap<>();
+    private final ArrayList<IDimensionProvider> dimension_providers = new ArrayList<>();
+    private final HashMap<Integer, IDimension>  dimension__map      = new HashMap<>();
 
-    private DimensionNexus() {}
+    private DimensionNexus() {
+    }
 
     @Override
     public String getUniqueIdentifier() {
@@ -44,22 +46,24 @@ public class DimensionNexus implements IDimensionNexus {
 
     @Override
     public boolean doesDimensionEmployOverhauledBehaviours(int dimensionID) {
-        IDimensionProvider dimensionProvider = this.dimension_providers_map.get(dimensionID);
-        return dimensionProvider != null && dimensionProvider.doesDimensionEmployOverhauledBehaviours();
+        IDimension dimension = this.dimension__map.get(dimensionID);
+        return dimension != null && dimension.doesDimensionEmployOverhauledBehaviours(dimensionID);
     }
 
     @SubscribeEvent
     public void handlePostInitialisationEvent(CommonPostInitialisationEvent event) {
         for (IDimensionProvider dimensionProvider : this.dimension_providers) {
-            if (!dimensionProvider.isDimensionEnabled()) {
-                continue;
-            }
+            for (IDimension dimension : dimensionProvider.getDimensions()) {
+                if (!dimension.isDimensionEnabled()) {
+                    continue;
+                }
 
-            int id = DimensionManager.getNextFreeDimId();
-            dimensionProvider.assignDimensionID(id);
-            DimensionManager.registerProviderType(id, dimensionProvider.getOverworldWorldProviderClass(), dimensionProvider.shouldSpawnStayInMemory());
-            DimensionManager.registerDimension(id, id);
-            this.dimension_providers_map.put(id, dimensionProvider);
+                int id = DimensionManager.getNextFreeDimId();
+                dimension.assignDimensionID(id);
+                DimensionManager.registerProviderType(id, dimension.getOverworldWorldProviderClass(), dimension.shouldSpawnStayInMemory());
+                DimensionManager.registerDimension(id, id);
+                this.dimension__map.put(id, dimension);
+            }
         }
     }
 }

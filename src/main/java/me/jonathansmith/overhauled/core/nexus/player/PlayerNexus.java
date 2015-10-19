@@ -10,6 +10,7 @@ import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.EntityEvent;
 import net.minecraftforge.fml.common.FMLCommonHandler;
+import net.minecraftforge.fml.common.eventhandler.Event;
 import net.minecraftforge.fml.common.eventhandler.EventBus;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.PlayerEvent;
@@ -44,6 +45,10 @@ public class PlayerNexus implements IPlayerNexus {
 
     private PlayerNexus() {}
 
+    public void post(Event e) {
+        this.player_event_bus.post(e);
+    }
+
     @Override
     public String getUniqueIdentifier() {
         return "Player Nexusw";
@@ -72,7 +77,7 @@ public class PlayerNexus implements IPlayerNexus {
     public void handlePreInitialisationEvent(CommonPreInitialisationEvent event) {
         FMLCommonHandler.instance().bus().register(this);
         MinecraftForge.EVENT_BUS.register(this);
-        NetworkNexus.getInstance().registerPacket(new PlayerPacketHandler(this.player_event_bus));
+        NetworkNexus.getInstance().registerPacket(new PlayerPacketHandler());
     }
 
     @SubscribeEvent
@@ -86,6 +91,36 @@ public class PlayerNexus implements IPlayerNexus {
             IExtendedPlayer extendedPlayer = this.constructExtendedPlayer(clazz);
             thePlayer.registerExtendedProperties(clazz.getCanonicalName(), extendedPlayer);
         }
+    }
+
+    private IExtendedPlayer constructExtendedPlayer(Class<? extends IExtendedPlayer> clazz) {
+        IExtendedPlayer player;
+        try {
+            Constructor constructor = clazz.getConstructor();
+            player = (IExtendedPlayer) constructor.newInstance();
+        }
+
+        catch (NoSuchMethodException ex) {
+            LogHandler.getInstance().error("Could not instantiate extended player");
+            return null;
+        }
+
+        catch (InstantiationException ex) {
+            LogHandler.getInstance().error("Could not instantiate extended player");
+            return null;
+        }
+
+        catch (InvocationTargetException ex) {
+            LogHandler.getInstance().error("Could not instantiate extended player");
+            return null;
+        }
+
+        catch (IllegalAccessException ex) {
+            LogHandler.getInstance().error("Could not instantiate extended player");
+            return null;
+        }
+
+        return player;
     }
 
     @SubscribeEvent
@@ -123,35 +158,5 @@ public class PlayerNexus implements IPlayerNexus {
                 this.player_event_bus.post(new PlayerRegistryEvent.PlayerTickEndEvent(event.side, event.player));
                 break;
         }
-    }
-
-    private IExtendedPlayer constructExtendedPlayer(Class<? extends IExtendedPlayer> clazz) {
-        IExtendedPlayer player;
-        try {
-            Constructor constructor = clazz.getConstructor();
-            player = (IExtendedPlayer) constructor.newInstance();
-        }
-
-        catch (NoSuchMethodException ex) {
-            LogHandler.getInstance().error("Could not instantiate extended player");
-            return null;
-        }
-
-        catch (InstantiationException ex) {
-            LogHandler.getInstance().error("Could not instantiate extended player");
-            return null;
-        }
-
-        catch (InvocationTargetException ex) {
-            LogHandler.getInstance().error("Could not instantiate extended player");
-            return null;
-        }
-
-        catch (IllegalAccessException ex) {
-            LogHandler.getInstance().error("Could not instantiate extended player");
-            return null;
-        }
-
-        return player;
     }
 }
