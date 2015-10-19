@@ -2,6 +2,7 @@ package me.jonathansmith.overhauled;
 
 import java.util.LinkedList;
 
+import me.jonathansmith.overhauled.core.nexus.gameobject.GameObjectNexus;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.*;
@@ -12,14 +13,13 @@ import me.jonathansmith.overhauled.core.CoreProperties;
 import me.jonathansmith.overhauled.core.configuration.CoreConfigurationHandler;
 import me.jonathansmith.overhauled.core.delegate.CommonDelegate;
 import me.jonathansmith.overhauled.api.nexus.INexus;
-import me.jonathansmith.overhauled.core.nexus.achievement.AchievementNexus;
 import me.jonathansmith.overhauled.core.nexus.configuration.ConfigurationNexus;
+import me.jonathansmith.overhauled.core.nexus.trait.TraitNexus;
+import me.jonathansmith.overhauled.core.nexus.achievement.AchievementNexus;
 import me.jonathansmith.overhauled.core.nexus.dimension.DimensionNexus;
-import me.jonathansmith.overhauled.core.nexus.game_object.GameObjectNexus;
 import me.jonathansmith.overhauled.core.nexus.multiblock.MultiblockNexus;
 import me.jonathansmith.overhauled.core.nexus.network.NetworkNexus;
 import me.jonathansmith.overhauled.core.nexus.player.PlayerNexus;
-import me.jonathansmith.overhauled.core.nexus.trait.TraitNexus;
 import me.jonathansmith.overhauled.core.nexus.world.WorldNexus;
 
 /**
@@ -44,14 +44,15 @@ public class Overhauled {
     public Overhauled() {
         // Construct native nexus'
         OverhauledAPI.registerNexus(ConfigurationNexus.getInstance());
+        OverhauledAPI.registerNexus(TraitNexus.getInstance());
         OverhauledAPI.registerNexus(NetworkNexus.getInstance());
         OverhauledAPI.registerNexus(PlayerNexus.getInstance());
+        OverhauledAPI.registerNexus(GameObjectNexus.getInstance());
         OverhauledAPI.registerNexus(MultiblockNexus.getInstance());
         OverhauledAPI.registerNexus(TraitNexus.getInstance());
         OverhauledAPI.registerNexus(AchievementNexus.getInstance());
         OverhauledAPI.registerNexus(WorldNexus.getInstance());
         OverhauledAPI.registerNexus(DimensionNexus.getInstance());
-        OverhauledAPI.registerNexus(GameObjectNexus.getInstance());
 
         // Construct native content
         OverhauledAPI.registerContent(CoreConfigurationHandler.getInstance());

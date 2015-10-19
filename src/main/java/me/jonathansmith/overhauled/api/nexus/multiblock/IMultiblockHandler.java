@@ -8,4 +8,6 @@ package me.jonathansmith.overhauled.api.nexus.multiblock;
 public interface IMultiblockHandler {
 
     Class<? extends IMultiblock> getMultiblockClass();
+
+    IMultiblockDeployer getMultiblockDeployer();
 }

@@ -31,22 +31,37 @@ public class LogHandler {
         FMLLog.log(CoreProperties.ID, logLevel, String.valueOf(obj));
     }
 
+    /**
+     * @param obj object to log at the fatal level see: {@link Level}
+     */
     public void fatal(Object obj) {
         log(Level.FATAL, obj);
     }
 
+    /**
+     * @param obj object to log at the error level see: {@link Level}
+     */
     public void error(Object obj) {
         log(Level.ERROR, obj);
     }
 
+    /**
+     * @param obj object to log at the warn level see: {@link Level}
+     */
     public void warn(Object obj) {
         log(Level.WARN, obj);
     }
 
+    /**
+     * @param obj object to log at the info level see: {@link Level}
+     */
     public void info(Object obj) {
         log(Level.INFO, obj);
     }
 
+    /**
+     * @param obj object to log at the debug level see: {@link Level}
+     */
     // TODO: This should not be our debug level but it currently is....
     @SuppressWarnings(value = "all")
     public void debug(Object obj) {

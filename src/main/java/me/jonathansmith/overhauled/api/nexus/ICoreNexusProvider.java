@@ -1,9 +1,10 @@
 package me.jonathansmith.overhauled.api.nexus;
 
+
 import me.jonathansmith.overhauled.api.nexus.achievement.IAchievementNexus;
 import me.jonathansmith.overhauled.api.nexus.configuration.IConfigurationNexus;
 import me.jonathansmith.overhauled.api.nexus.dimension.IDimensionNexus;
-import me.jonathansmith.overhauled.api.nexus.game_object.IGameObjectNexus;
+import me.jonathansmith.overhauled.api.nexus.gameobject.IGameObjectNexus;
 import me.jonathansmith.overhauled.api.nexus.multiblock.IMultiblockNexus;
 import me.jonathansmith.overhauled.api.nexus.network.INetworkNexus;
 import me.jonathansmith.overhauled.api.nexus.player.IPlayerNexus;
@@ -33,6 +34,11 @@ public interface ICoreNexusProvider {
     IPlayerNexus getPlayerNexus();
 
     /**
+     * @return the singleton instance of IGameObject nexus which allows registration of all in game objects for automatic deployment
+     */
+    IGameObjectNexus getGameObjectNexus();
+
+    /**
      * @return the singleton instance of IMultiblockNexus which allows multiple multiblock types to be registered and handled
      */
     IMultiblockNexus getMultiblockNexus();
@@ -56,11 +62,6 @@ public interface ICoreNexusProvider {
      * @return the singleton instance of IDimensionNexus, allowing registration of unique dimensions that can be deployed automatically
      */
     IDimensionNexus getDimensionNexus();
-
-    /**
-     * @return the singleton instance if IGameObjectNexus, allowing registration of unique in game objects such as blocks or items
-     */
-    IGameObjectNexus getGameObjectNexus();
 
     /**
      * @param name the unique string identifier for a nexus
