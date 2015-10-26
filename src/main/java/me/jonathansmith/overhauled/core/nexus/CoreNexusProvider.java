@@ -7,6 +7,7 @@ import me.jonathansmith.overhauled.api.nexus.INexus;
 import me.jonathansmith.overhauled.api.nexus.achievement.IAchievementNexus;
 import me.jonathansmith.overhauled.api.nexus.configuration.IConfigurationNexus;
 import me.jonathansmith.overhauled.api.nexus.dimension.IDimensionNexus;
+import me.jonathansmith.overhauled.api.nexus.game_object.IGameObjectNexus;
 import me.jonathansmith.overhauled.api.nexus.multiblock.IMultiblockNexus;
 import me.jonathansmith.overhauled.api.nexus.network.INetworkNexus;
 import me.jonathansmith.overhauled.api.nexus.player.IPlayerNexus;
@@ -31,6 +32,7 @@ public class CoreNexusProvider implements ICoreNexusProvider {
     private IAchievementNexus   achievementNexus;
     private IWorldNexus         worldNexus;
     private IDimensionNexus     dimensionNexus;
+    private IGameObjectNexus    gameObjectNexus;
 
     @Override
     public IConfigurationNexus getConfigurationNexus() {
@@ -73,6 +75,11 @@ public class CoreNexusProvider implements ICoreNexusProvider {
     }
 
     @Override
+    public IGameObjectNexus getGameObjectNexus() {
+        return this.gameObjectNexus;
+    }
+
+    @Override
     public INexus getNexusByName(String name) {
         return this.nexus_list.get(name);
     }
@@ -111,6 +118,9 @@ public class CoreNexusProvider implements ICoreNexusProvider {
             case "Dimension Nexus":
                 this.dimensionNexus = (IDimensionNexus) nexus;
                 break;
+
+            case "Game Object Nexus":
+                this.gameObjectNexus = (IGameObjectNexus) nexus;
         }
 
         this.nexus_list.put(key, nexus);

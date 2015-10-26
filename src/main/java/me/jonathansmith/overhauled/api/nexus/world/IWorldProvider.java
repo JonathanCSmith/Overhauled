@@ -12,7 +12,7 @@ public interface IWorldProvider {
     /**
      * @return whether or not this world provider is enabled (allows dynamic world providers)
      */
-    boolean isEnabled();
+    boolean isWorldEnabled();
 
     /**
      * @return the world type associated with this provided
@@ -22,5 +22,5 @@ public interface IWorldProvider {
     /**
      * Hook to schedule building of the world provider
      */
-    void build();
+    void buildWorld();
 }

@@ -4,8 +4,8 @@ import me.jonathansmith.overhauled.api.nexus.INexus;
 
 /**
  * Created by Jonathan Charles Smith on 08/09/15.
- *
- * Contract for the dimension registry. Dimensions will be automatically deployed
+ * <p/>
+ * Contract for the dimension nexus. Dimensions will be automatically deployed
  */
 public interface IDimensionNexus extends INexus {
 

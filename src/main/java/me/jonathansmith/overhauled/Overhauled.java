@@ -15,6 +15,7 @@ import me.jonathansmith.overhauled.api.nexus.INexus;
 import me.jonathansmith.overhauled.core.nexus.achievement.AchievementNexus;
 import me.jonathansmith.overhauled.core.nexus.configuration.ConfigurationNexus;
 import me.jonathansmith.overhauled.core.nexus.dimension.DimensionNexus;
+import me.jonathansmith.overhauled.core.nexus.game_object.GameObjectNexus;
 import me.jonathansmith.overhauled.core.nexus.multiblock.MultiblockNexus;
 import me.jonathansmith.overhauled.core.nexus.network.NetworkNexus;
 import me.jonathansmith.overhauled.core.nexus.player.PlayerNexus;
@@ -50,6 +51,7 @@ public class Overhauled {
         OverhauledAPI.registerNexus(AchievementNexus.getInstance());
         OverhauledAPI.registerNexus(WorldNexus.getInstance());
         OverhauledAPI.registerNexus(DimensionNexus.getInstance());
+        OverhauledAPI.registerNexus(GameObjectNexus.getInstance());
 
         // Construct native content
         OverhauledAPI.registerContent(CoreConfigurationHandler.getInstance());

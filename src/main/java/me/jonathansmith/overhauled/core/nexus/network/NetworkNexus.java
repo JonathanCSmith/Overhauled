@@ -104,6 +104,7 @@ public class NetworkNexus implements INetworkNexus {
     }
 
     @Override
+    @Deprecated
     public void submitTaskFromNetworkThreadToMainThread(Runnable runnable, MessageContext ctx) {
         switch (ctx.side) {
             case CLIENT:
