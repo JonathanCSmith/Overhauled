@@ -4,6 +4,8 @@ import net.minecraft.util.BlockPos;
 
 /**
  * Created by Jonathan Charles Smith on 26/10/15.
+ *
+ * Generic properties about the universe that can be constantly referenced
  */
 public class UniverseHelper {
 

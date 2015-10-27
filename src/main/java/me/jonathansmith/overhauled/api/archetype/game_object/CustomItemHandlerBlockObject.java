@@ -5,14 +5,15 @@ import net.minecraft.item.ItemBlock;
 
 /**
  * Created by Jonathan Charles Smith on 26/10/15.
+ *
+ * Template for blocks that wish to use custom itemblock classes
  */
 public abstract class CustomItemHandlerBlockObject extends BlockObject {
 
     private Class<? extends ItemBlock> itemClass;
 
-    // TODO: Fix
-    public CustomItemHandlerBlockObject(Material materialIn) {
-        super(materialIn);
+    public CustomItemHandlerBlockObject(Material materialIn, String stateIndependentName) {
+        super(materialIn, stateIndependentName);
     }
 
     public Class<? extends ItemBlock> getItemClass() {
