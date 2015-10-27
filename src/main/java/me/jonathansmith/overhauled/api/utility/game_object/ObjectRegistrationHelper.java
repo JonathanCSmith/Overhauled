@@ -9,6 +9,8 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 
 import me.jonathansmith.overhauled.api.archetype.game_object.*;
 
+import me.jonathansmith.overhauled.core.CoreProperties;
+
 /**
  * Created by Jonathan Charles Smith on 26/10/15.
  *
@@ -46,7 +48,7 @@ public class ObjectRegistrationHelper {
             throw new IllegalArgumentException("Error with unlocalised name: " + unlocalisedName + " as it should be lowercase!");
         }
 
-        block.setUnlocalizedName(unlocalisedName);
+        block.setUnlocalizedName(CoreProperties.ID + "." + unlocalisedName);
         GameRegistry.registerBlock(block, itemBlockClass, unlocalisedName);
 
         // TODO: Automatic creative tabs

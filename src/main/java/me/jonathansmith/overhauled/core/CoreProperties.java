@@ -1,5 +1,7 @@
 package me.jonathansmith.overhauled.core;
 
+import tv.twitch.Core;
+
 /**
  * Created by Jonathan Charles Smith on 25/08/15.
  *
@@ -16,4 +18,5 @@ public class CoreProperties {
 
     // ************************ RUNTIME ARGUMENTS **********************
     public static final boolean IS_DEBUG_MODE_FORCED    = true;
+    public static final String NETWORK_NAME = CoreProperties.ID;
 }

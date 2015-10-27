@@ -4,7 +4,7 @@ import java.util.LinkedHashMap;
 
 import me.jonathansmith.overhauled.api.nexus.ICoreNexusProvider;
 import me.jonathansmith.overhauled.api.nexus.INexus;
-import me.jonathansmith.overhauled.api.nexus.gameobject.IGameObjectNexus;
+import me.jonathansmith.overhauled.api.nexus.game_object.IGameObjectNexus;
 import me.jonathansmith.overhauled.api.nexus.trait.ITraitNexus;
 import me.jonathansmith.overhauled.api.nexus.achievement.IAchievementNexus;
 import me.jonathansmith.overhauled.api.nexus.configuration.IConfigurationNexus;
@@ -101,6 +101,7 @@ public class CoreNexusProvider implements ICoreNexusProvider {
 
             case "Game Object Nexus":
                 this.gameObjectNexus = (IGameObjectNexus) nexus;
+                break;
 
             case "Multiblock Nexus":
                 this.multiblockNexus = (IMultiblockNexus) nexus;

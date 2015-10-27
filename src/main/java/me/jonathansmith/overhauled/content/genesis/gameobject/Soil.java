@@ -36,12 +36,15 @@ public class Soil extends MetaBlockObject {
         super(Material.ground, NAME, Arrays.asList(new IProperty[]{BlockDirt.VARIANT, BlockDirt.SNOWY}));
 
         this.setDefaultState(this.blockState.getBaseState().withProperty(BlockDirt.VARIANT, BlockDirt.DirtType.DIRT).withProperty(BlockDirt.SNOWY, false));
+
+        // TODO: Change
+        this.setCreativeTab(CreativeTabs.tabCombat);
     }
 
     @Override
     public void fillMap() {
         for (BlockDirt.DirtType dirtType : BlockDirt.DirtType.values()) {
-            this.meta_map.put(dirtType.getMetadata(), dirtType.getUnlocalizedName());
+            this.meta_map.put(dirtType.getMetadata(), dirtType.getName());
         }
     }
 
@@ -110,7 +113,7 @@ public class Soil extends MetaBlockObject {
 
     @Override
     public void handleRenderingRegistration(RenderingRegistrationHelper renderingRegistrationHelper) {
-        renderingRegistrationHelper.registerStateAwareModel(this, "minecraft");
+        renderingRegistrationHelper.registerStateAwareModel(this);
     }
 
     @Override

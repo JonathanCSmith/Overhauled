@@ -8,6 +8,7 @@ import me.jonathansmith.overhauled.api.nexus.INexus;
  * Contract for the game object nexus. Objects will be automatically deployed
  */
 public interface IGameObjectNexus extends INexus {
+
     void registerGameObject(IGameObject gameObject);
 
     void registerGameObjectProvider(IGameObjectProvider gameObjectProvider);

@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "snowy=false,variant=dirt": { "model" : "minecraft:dirt" },
+    "snowy=true,variant=dirt": { "model" : "minecraft:dirt" },
+    "snowy=false,variant=podzol": { "model" : "minecraft:podzol" },
+    "snowy=true,variant=podzol": { "model" : "minecraft:podzol" },
+    "snowy=false,variant=coarse_dirt": { "model" : "minecraft:coarse_dirt" },
+    "snowy=true,variant=coarse_dirt": { "model" : "minecraft:coarse_dirt" }
+  }
+}

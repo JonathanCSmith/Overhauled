@@ -2,17 +2,18 @@ package me.jonathansmith.overhauled;
 
 import java.util.LinkedList;
 
-import me.jonathansmith.overhauled.core.nexus.gameobject.GameObjectNexus;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.*;
 
 import me.jonathansmith.overhauled.api.OverhauledAPI;
 import me.jonathansmith.overhauled.api.content.IContent;
+import me.jonathansmith.overhauled.api.nexus.INexus;
+
+import me.jonathansmith.overhauled.content.genesis.GenesisContent;
 import me.jonathansmith.overhauled.core.CoreProperties;
 import me.jonathansmith.overhauled.core.configuration.CoreConfigurationHandler;
 import me.jonathansmith.overhauled.core.delegate.CommonDelegate;
-import me.jonathansmith.overhauled.api.nexus.INexus;
 import me.jonathansmith.overhauled.core.nexus.configuration.ConfigurationNexus;
 import me.jonathansmith.overhauled.core.nexus.trait.TraitNexus;
 import me.jonathansmith.overhauled.core.nexus.achievement.AchievementNexus;
@@ -21,10 +22,11 @@ import me.jonathansmith.overhauled.core.nexus.multiblock.MultiblockNexus;
 import me.jonathansmith.overhauled.core.nexus.network.NetworkNexus;
 import me.jonathansmith.overhauled.core.nexus.player.PlayerNexus;
 import me.jonathansmith.overhauled.core.nexus.world.WorldNexus;
+import me.jonathansmith.overhauled.core.nexus.game_object.GameObjectNexus;
 
 /**
  * Created by Jonathan Charles Smith on 25/08/15.
- *
+ * <p>
  * Entry point for the Overhauled mod.
  */
 @Mod(
@@ -56,6 +58,7 @@ public class Overhauled {
 
         // Construct native content
         OverhauledAPI.registerContent(CoreConfigurationHandler.getInstance());
+        OverhauledAPI.registerContent(new GenesisContent());
     }
 
     @Mod.EventHandler

@@ -8,7 +8,7 @@ package me.jonathansmith.overhauled.content.genesis;
 public class GenesisProperties {
 
     // Universe properties
-    public static final String UNIVERSE_TYPE_IDENTIFIER = "universe.universe_type";
+    public static final String UNIVERSE_TYPE_IDENTIFIER = "universe.type";
 
     // Overworld properties
     public static final String  OVERWORLD_NAME                        = "Overworld";
