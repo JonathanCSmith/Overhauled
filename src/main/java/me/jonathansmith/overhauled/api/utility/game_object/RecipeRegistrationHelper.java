@@ -5,5 +5,5 @@ package me.jonathansmith.overhauled.api.utility.game_object;
  *
  * Helper class to facilitate registration of recipes
  */
-public class RecipeRegistrationHelper {
+public class RecipeRegistrationHelper implements IRecipeRegistrationHelper {
 }

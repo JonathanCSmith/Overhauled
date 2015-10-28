@@ -17,27 +17,15 @@ import me.jonathansmith.overhauled.core.CoreProperties;
  * Helper class for object registration - inspired (currently basically copied from) by
  * https://github.com/SlimeKnights/TinkersConstruct/blob/rework/src/main/java/slimeknights/tconstruct/common/TinkerPulse.java
  */
-public class ObjectRegistrationHelper {
+public class ObjectRegistrationHelper implements IObjectRegistrationHelper {
 
-    /**
-     * Register a metadata sensitive model using the following properties:
-     *
-     * @param block the block to associate a model with
-     * @param unlocalisedName the name to associate with the model - also used to generate the resource path
-     * @param <T> a block that extends MetaBlockObject
-     */
-    public <T extends MetaBlockObject> void registerComplexMetaBlock(T block, String unlocalisedName) {
-        this.registerBlock(block, MetaBlockItemObject.class, unlocalisedName);
-        ((MetaBlockItemObject) Item.getItemFromBlock(block)).setMappingProperties(block.getProperties());
+    @Override
+    public <T extends MetadataBlockObject> void registerMetadataBlock(T block, String unlocalisedName) {
+        this.registerBlock(block, MetadataBlockItemObject.class, unlocalisedName);
+        ((MetadataBlockItemObject) Item.getItemFromBlock(block)).setMappingProperties(block.getProperties());
     }
 
-    /**
-     * Register a model with a custom itemblock class using the following properties:
-     *
-     * @param block the block to associate a model with
-     * @param unlocalisedName the name to associate with the model - also used to generate the resource path
-     * @param <T> a block that extends CustomItemHandlerBlockObject
-     */
+    @Override
     public <T extends CustomItemHandlerBlockObject> void registerCustomItemHandlerBlock(T block, String unlocalisedName) {
         this.registerBlock(block, block.getItemClass(), unlocalisedName);
     }

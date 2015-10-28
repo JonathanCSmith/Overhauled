@@ -1,7 +1,6 @@
 package me.jonathansmith.overhauled.content.genesis.gameobject;
 
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
 
 import net.minecraft.block.Block;
@@ -18,17 +17,15 @@ import net.minecraft.util.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
-import me.jonathansmith.overhauled.api.archetype.game_object.MetaBlockObject;
-import me.jonathansmith.overhauled.api.utility.game_object.ObjectRegistrationHelper;
-import me.jonathansmith.overhauled.api.utility.game_object.RecipeRegistrationHelper;
-import me.jonathansmith.overhauled.api.utility.game_object.RenderingRegistrationHelper;
+import me.jonathansmith.overhauled.api.archetype.game_object.MetadataBlockObject;
+import me.jonathansmith.overhauled.api.utility.game_object.*;
 
 /**
  * Created by Jonathan Charles Smith on 26/10/15.
  * <p/>
  * Reimplementation of dirt with additional traits to interact with behaviours
  */
-public class Soil extends MetaBlockObject {
+public class Soil extends MetadataBlockObject {
 
     private static final String NAME = "soil";
 
@@ -43,8 +40,8 @@ public class Soil extends MetaBlockObject {
 
     @Override
     public void fillMap() {
-        for (BlockDirt.DirtType dirtType : BlockDirt.DirtType.values()) {
-            this.meta_map.put(dirtType.getMetadata(), dirtType.getName());
+        for (IProperty property : this.getProperties()) {
+
         }
     }
 
@@ -103,26 +100,21 @@ public class Soil extends MetaBlockObject {
     }
 
     @Override
-    public void handleObjectRegistration(ObjectRegistrationHelper objectRegistrationHelper) {
-        objectRegistrationHelper.registerComplexMetaBlock(this, this.state_independent_name);
+    public void handleObjectRegistration(IObjectRegistrationHelper objectRegistrationHelper) {
+        objectRegistrationHelper.registerMetadataBlock(this, this.state_independent_name);
     }
 
     @Override
-    public void handleRecipeRegistration(RecipeRegistrationHelper recipeRegistrationHelper) {
+    public void handleRecipeRegistration(IRecipeRegistrationHelper recipeRegistrationHelper) {
     }
 
     @Override
-    public void handleRenderingRegistration(RenderingRegistrationHelper renderingRegistrationHelper) {
-        renderingRegistrationHelper.registerStateAwareModel(this);
+    public void handleRenderingRegistration(IRenderingRegistrationHelper renderingRegistrationHelper) {
+        renderingRegistrationHelper.meshMultiBlockStatesToModels(this);
     }
 
     @Override
-    public HashMap<Integer, String> getStateToMetadataMapping() {
-        return this.meta_map;
-    }
-
-    @Override
-    public Item getItem() {
-        return Item.getItemFromBlock(this);
+    public boolean isValidState(IBlockState state) {
+        return true; // We accept them all
     }
 }

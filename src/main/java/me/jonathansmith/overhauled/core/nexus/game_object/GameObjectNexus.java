@@ -10,9 +10,7 @@ import me.jonathansmith.overhauled.api.delegate.event.CommonPreInitialisationEve
 import me.jonathansmith.overhauled.api.nexus.game_object.IGameObject;
 import me.jonathansmith.overhauled.api.nexus.game_object.IGameObjectNexus;
 import me.jonathansmith.overhauled.api.nexus.game_object.IGameObjectProvider;
-import me.jonathansmith.overhauled.api.utility.game_object.ObjectRegistrationHelper;
-import me.jonathansmith.overhauled.api.utility.game_object.RecipeRegistrationHelper;
-import me.jonathansmith.overhauled.api.utility.game_object.RenderingRegistrationHelper;
+import me.jonathansmith.overhauled.api.utility.game_object.*;
 
 /**
  * Created by Jonathan Charles Smith on 26/10/15.
@@ -22,9 +20,9 @@ import me.jonathansmith.overhauled.api.utility.game_object.RenderingRegistration
 public class GameObjectNexus implements IGameObjectNexus {
 
     // Facilitators to enable reduced boilerplate visitor pattern
-    private static final ObjectRegistrationHelper    OBJECT_REGISTRATION_HELPER    = new ObjectRegistrationHelper();
-    private static final RecipeRegistrationHelper    RECIPE_REGISTRATION_HELPER    = new RecipeRegistrationHelper();
-    private static final RenderingRegistrationHelper RENDERING_REGISTRATION_HELPER = new RenderingRegistrationHelper();
+    private static final IObjectRegistrationHelper    OBJECT_REGISTRATION_HELPER    = new ObjectRegistrationHelper();
+    private static final IRecipeRegistrationHelper    RECIPE_REGISTRATION_HELPER    = new RecipeRegistrationHelper();
+    private static final IRenderingRegistrationHelper RENDERING_REGISTRATION_HELPER = new RenderingRegistrationHelper();
 
     private static GameObjectNexus instance;
 

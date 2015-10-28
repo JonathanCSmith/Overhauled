@@ -4,7 +4,6 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
-import me.jonathansmith.overhauled.api.nexus.game_object.IGameObject;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.state.BlockState;
@@ -22,17 +21,17 @@ import me.jonathansmith.overhauled.api.OverhauledAPI;
  *
  * Template class for blocks that need to be aware of one or multiple states
  */
-public abstract class MetaBlockObject extends BlockObject implements IMetadataStateAwareModel {
+public abstract class MetadataBlockObject extends BlockObject implements IStateAwareObject {
 
     protected final HashMap<Integer, String> meta_map = new HashMap<>();
 
     private final List<IProperty> properties;
 
-    public MetaBlockObject(Material materialIn, String stateIndependentName, IProperty property) {
+    public MetadataBlockObject(Material materialIn, String stateIndependentName, IProperty property) {
         this(materialIn, stateIndependentName, Arrays.asList(new IProperty[]{property}));
     }
 
-    public MetaBlockObject(Material materialIn, String stateIndependentName, List<IProperty> properties) {
+    public MetadataBlockObject(Material materialIn, String stateIndependentName, List<IProperty> properties) {
         super(materialIn, stateIndependentName);
 
         this.properties = properties;

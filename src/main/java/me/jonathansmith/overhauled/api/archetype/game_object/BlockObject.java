@@ -2,6 +2,7 @@ package me.jonathansmith.overhauled.api.archetype.game_object;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.state.IBlockState;
 
 import me.jonathansmith.overhauled.api.nexus.game_object.IGameObject;
 
