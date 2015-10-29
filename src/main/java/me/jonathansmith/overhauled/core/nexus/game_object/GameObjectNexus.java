@@ -11,6 +11,7 @@ import me.jonathansmith.overhauled.api.nexus.game_object.IGameObject;
 import me.jonathansmith.overhauled.api.nexus.game_object.IGameObjectNexus;
 import me.jonathansmith.overhauled.api.nexus.game_object.IGameObjectProvider;
 import me.jonathansmith.overhauled.api.utility.game_object.*;
+import me.jonathansmith.overhauled.core.utility.game_object.RenderingRegistrationHelper;
 
 /**
  * Created by Jonathan Charles Smith on 26/10/15.

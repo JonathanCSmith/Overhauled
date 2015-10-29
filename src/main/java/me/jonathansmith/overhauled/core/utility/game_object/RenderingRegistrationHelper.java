@@ -1,4 +1,4 @@
-package me.jonathansmith.overhauled.api.utility.game_object;
+package me.jonathansmith.overhauled.core.utility.game_object;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -16,7 +16,8 @@ import net.minecraftforge.fml.common.registry.GameData;
 
 import com.google.common.collect.Lists;
 import me.jonathansmith.overhauled.api.archetype.game_object.BlockObject;
-import me.jonathansmith.overhauled.api.archetype.game_object.IStateAwareObject;
+import me.jonathansmith.overhauled.api.archetype.game_object.IStateAwareObjectModelMesherHelper;
+import me.jonathansmith.overhauled.api.utility.game_object.IRenderingRegistrationHelper;
 import me.jonathansmith.overhauled.core.CoreProperties;
 
 /**
@@ -29,12 +30,12 @@ public class RenderingRegistrationHelper implements IRenderingRegistrationHelper
     private static final int DEFAULT_METADATA = 0;
 
     @Override
-    public <T extends BlockObject & IStateAwareObject> void meshMultiBlockStatesToModels(T block) {
+    public <T extends BlockObject & IStateAwareObjectModelMesherHelper> void meshMultiBlockStatesToModels(T block) {
         this.meshMultiBlockStatesToModels(block, CoreProperties.ID);
     }
 
     @Override
-    public <T extends BlockObject & IStateAwareObject> void meshMultiBlockStatesToModels(T block, String resourceDomain) {
+    public <T extends BlockObject & IStateAwareObjectModelMesherHelper> void meshMultiBlockStatesToModels(T block, String resourceDomain) {
         final Item item = Item.getItemFromBlock(block);
         final ResourceLocation location = (ResourceLocation) GameData.getBlockRegistry().getNameForObject(block);
         final ResourceLocation targetLocation;
@@ -50,7 +51,7 @@ public class RenderingRegistrationHelper implements IRenderingRegistrationHelper
         Collection<List<Comparable>> permutations = this.buildVariantList(block);
         for (List<Comparable> permutation : permutations) {
             if (permutation.size() != properties.size()) {
-                throw new IllegalStateException("A permutation of properties was generated that did not have the prerequisite number of properties");
+                throw new IllegalStateException("A permutation of properties was generated that did not have the prerequisite number of property values");
             }
 
             String permutationString = "";
@@ -63,15 +64,19 @@ public class RenderingRegistrationHelper implements IRenderingRegistrationHelper
             }
 
             if (block.isValidState(state)) {
-                permutationString = permutationString.substring(0, permutationString.length() - 2);
                 int meta = block.getMetaFromState(state);
-                ModelLoader.setCustomModelResourceLocation(item, meta, new ModelResourceLocation(targetLocation, permutationString));
+                String targetPath = block.getCustomResourcePathForMetadata(meta);
+                if (targetPath == null || targetPath.equals("")) {
+                    targetPath = permutationString.substring(0, permutationString.length() - 1);
+                }
+
+                ModelLoader.setCustomModelResourceLocation(item, meta, new ModelResourceLocation(targetLocation, targetPath));
             }
         }
     }
 
     @SuppressWarnings("unchecked")
-    private Collection<List<Comparable>> buildVariantList(IStateAwareObject multiModel) {
+    private Collection<List<Comparable>> buildVariantList(IStateAwareObjectModelMesherHelper multiModel) {
         List<IProperty> properties = multiModel.getProperties();
         List<Collection<Comparable>> collections = new LinkedList<>();
         for (IProperty property : properties) {

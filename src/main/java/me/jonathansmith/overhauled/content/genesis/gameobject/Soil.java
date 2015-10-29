@@ -39,13 +39,6 @@ public class Soil extends MetadataBlockObject {
     }
 
     @Override
-    public void fillMap() {
-        for (IProperty property : this.getProperties()) {
-
-        }
-    }
-
-    @Override
     public BlockState createBlockState() {
         return new BlockState(this, new IProperty[]{BlockDirt.VARIANT, BlockDirt.SNOWY});
     }
@@ -110,11 +103,27 @@ public class Soil extends MetadataBlockObject {
 
     @Override
     public void handleRenderingRegistration(IRenderingRegistrationHelper renderingRegistrationHelper) {
-        renderingRegistrationHelper.meshMultiBlockStatesToModels(this);
+        renderingRegistrationHelper.meshMultiBlockStatesToModels(this, "minecraft");
     }
 
     @Override
     public boolean isValidState(IBlockState state) {
         return true; // We accept them all
+    }
+
+    @Override
+    public String getCustomResourcePathForMetadata(int meta) {
+        switch (meta) {
+            case 0:
+                return "dirt";
+
+            case 1:
+                return "coarse_dirt";
+
+            case 2:
+                return "podzol";
+        }
+
+        return "";
     }
 }

@@ -21,7 +21,7 @@ import me.jonathansmith.overhauled.api.OverhauledAPI;
  *
  * Template class for blocks that need to be aware of one or multiple states
  */
-public abstract class MetadataBlockObject extends BlockObject implements IStateAwareObject {
+public abstract class MetadataBlockObject extends BlockObject implements IStateAwareObjectModelMesherHelper {
 
     protected final HashMap<Integer, String> meta_map = new HashMap<>();
 
@@ -36,15 +36,12 @@ public abstract class MetadataBlockObject extends BlockObject implements IStateA
 
         this.properties = properties;
 
-        this.fillMap();
         OverhauledAPI.getNexusProvider().getGameObjectNexus().registerGameObject(this);
     }
 
     public List<IProperty> getProperties() {
         return properties;
     }
-
-    protected abstract void fillMap();
 
     @Override
     public abstract BlockState createBlockState();
